@@ -1,0 +1,81 @@
+Last[{{{1, 1, 1, -1, 1}, {0, 0, 0, -1, 0}, {1, 1, 1, 0, 0}, {-1, 0, 0, 0, 0}, 
+   {0, -1, 0, 0, 0}}, 
+  {j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] /; n3 != 1 :> 
+    -((av2*n5*j[gr1, n1, n2, -1 + n3, n4, 1 + n5])/(-1 + n3)) - 
+     (n4*y*j[gr1, n1, n2, -1 + n3, 1 + n4, n5])/(-1 + n3) + 
+     (av2*n5*j[gr1, 1 + n1, -1 + n2, -1 + n3, n4, 1 + n5])/(-1 + n3) + 
+     (n4*y*j[gr1, 1 + n1, -1 + n2, -1 + n3, 1 + n4, n5])/(-1 + n3) + 
+     j[gr1, 1 + n1, -1 + n2, n3, n4, n5] + 
+     (2*n5*qa*j[gr1, 1 + n1, n2, -2 + n3, n4, 1 + n5])/(-1 + n3) - 
+     (2*n2*qq*j[gr1, 1 + n1, 1 + n2, -2 + n3, n4, n5])/(-1 + n3) + 
+     (2*(1 + n1)*qq*j[gr1, 2 + n1, n2, -2 + n3, n4, n5])/(-1 + n3), 
+   j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] /; n3 == 1 && n2 != 1 :> 
+    -1/2*((aa - av2^2)*(1 + n5)*j[gr1, -1 + n1, -1 + n2, 1, n4, 2 + n5])/
+       ((-1 + n2)*qq) + (av2*n4*y*j[gr1, -1 + n1, -1 + n2, 1, 1 + n4, 
+        1 + n5])/(2*(-1 + n2)*qq) + (qa*j[gr1, -1 + n1, n2, 1, n4, 1 + n5])/
+      qq + ((aa - av2^2)*(1 + n5)*j[gr1, n1, -2 + n2, 1, n4, 2 + n5])/
+      (2*(-1 + n2)*qq) - (av2*n4*y*j[gr1, n1, -2 + n2, 1, 1 + n4, 1 + n5])/
+      (2*(-1 + n2)*qq) - (av2*(1 + n5)*qa*j[gr1, n1, -1 + n2, 0, n4, 2 + n5])/
+      ((-1 + n2)*qq) - ((-2 + n2 - n5)*qa*j[gr1, n1, -1 + n2, 1, n4, 1 + n5])/
+      ((-1 + n2)*qq) + av2*j[gr1, n1, n2, 0, n4, 1 + n5] - 
+     (av2*n1*j[gr1, 1 + n1, -1 + n2, 0, n4, 1 + n5])/(-1 + n2) + 
+     (n1*j[gr1, 1 + n1, -1 + n2, 1, n4, n5])/(-1 + n2), 
+   j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] /; n2 == 1 && n3 == 1 && n5 != 1 :> 
+    j[gr1, -1 + n1, 1, 1, n4, n5]/qq + 
+     (av2*n4*y*j[gr1, -1 + n1, 1, 1, 1 + n4, -1 + n5])/
+      ((-aa + av2^2)*(-1 + n5)*qq) - j[gr1, n1, 0, 1, n4, n5]/qq - 
+     (av2*n4*y*j[gr1, n1, 0, 1, 1 + n4, -1 + n5])/((-aa + av2^2)*(-1 + n5)*
+       qq) - (2*av2*qa*j[gr1, n1, 1, 0, n4, n5])/((-aa + av2^2)*qq) - 
+     (2*(-3 + d - 2*n1 - n4)*qa*j[gr1, n1, 1, 1, n4, -1 + n5])/
+      ((aa - av2^2)*(-1 + n5)*qq) - 
+     (av2*n4*y*j[gr1, n1, 1, 1, 1 + n4, -1 + n5])/((-aa + av2^2)*(-1 + n5)) - 
+     (4*av2*n1*j[gr1, 1 + n1, 1, 0, n4, -1 + n5])/((-aa + av2^2)*(-1 + n5)) - 
+     (4*n1*j[gr1, 1 + n1, 1, 1, n4, -2 + n5])/((aa - av2^2)*(-1 + n5)), 
+   j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] /; n2 == 1 && n3 == 1 && n5 == 1 && n1 != 1 :> 
+    -((qa*j[gr1, -2 + n1, 1, 1, n4, 2])/((-1 + n1)*qq^2)) - 
+     (av2*n4*qa*y*j[gr1, -2 + n1, 1, 1, 1 + n4, 1])/((-aa + av2^2)*(-1 + n1)*
+       qq^2) + (qa*j[gr1, -1 + n1, 0, 1, n4, 2])/((-1 + n1)*qq^2) + 
+     (av2*n4*qa*y*j[gr1, -1 + n1, 0, 1, 1 + n4, 1])/((-aa + av2^2)*(-1 + n1)*
+       qq^2) + (2*av2*qa^2*j[gr1, -1 + n1, 1, 0, n4, 2])/
+      ((-aa + av2^2)*(-1 + n1)*qq^2) + 
+     ((-2*qa^2 + 2*d*qa^2 - 4*n1*qa^2 - 2*n4*qa^2 + 3*aa*qq - 3*av2^2*qq - 
+        aa*d*qq + av2^2*d*qq + aa*n1*qq - av2^2*n1*qq + aa*n4*qq - 
+        av2^2*n4*qq)*j[gr1, -1 + n1, 1, 1, n4, 1])/((aa - av2^2)*(-1 + n1)*
+       qq^2) + (av2*n4*qa*y*j[gr1, -1 + n1, 1, 1, 1 + n4, 1])/
+      ((-aa + av2^2)*(-1 + n1)*qq) + j[gr1, n1, 0, 1, n4, 1]/qq + 
+     (4*av2*qa*j[gr1, n1, 1, 0, n4, 1])/((-aa + av2^2)*qq) + 
+     (4*qa*j[gr1, n1, 1, 1, n4, 0])/((aa - av2^2)*qq), 
+   j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] /; n1 == 1 && n2 == 1 && n3 == 1 && n5 == 1 && 
+      n4 != 0 :> ((aa - av2^2)*j[gr1, 0, 1, 1, n4, 2])/(2*(-5 + d - n4)*qa) - 
+     (av2*n4*y*j[gr1, 0, 1, 1, 1 + n4, 1])/(2*(-5 + d - n4)*qa) - 
+     (av2*(-aa + av2^2)*qq*y*j[gr1, 0, 1, 1, 1 + n4, 2])/
+      (2*(-5 + d - n4)*(qa^2 - aa*qq + av2^2*qq)) + 
+     ((1 + n4)*qq*(-aa + av2^2 + aa*y^2 - 2*av2^2*y^2)*
+       j[gr1, 0, 1, 1, 2 + n4, 1])/(4*(-5 + d - n4)*(qa^2 - aa*qq + 
+        av2^2*qq)) + ((-aa + av2^2)*j[gr1, 1, 0, 1, n4, 2])/
+      (2*(-5 + d - n4)*qa) + (av2*n4*y*j[gr1, 1, 0, 1, 1 + n4, 1])/
+      (2*(-5 + d - n4)*qa) + (av2*(-aa + av2^2)*qq*y*j[gr1, 1, 0, 1, 1 + n4, 
+        2])/(2*(-5 + d - n4)*(qa^2 - aa*qq + av2^2*qq)) - 
+     ((1 + n4)*qq*(-aa + av2^2 + aa*y^2 - 2*av2^2*y^2)*
+       j[gr1, 1, 0, 1, 2 + n4, 1])/(4*(-5 + d - n4)*(qa^2 - aa*qq + 
+        av2^2*qq)) + (av2*j[gr1, 1, 1, 0, n4, 2])/(-5 + d - n4) - 
+     (qq*(aa*qa^2 - 2*av2^2*qa^2 - aa^2*qq + aa*av2^2*qq)*y*
+       j[gr1, 1, 1, 0, 1 + n4, 2])/(2*(-5 + d - n4)*qa*
+       (qa^2 - aa*qq + av2^2*qq)) + (av2*(-aa + av2^2)*(1 + n4)*qq^2*
+       j[gr1, 1, 1, 0, 2 + n4, 1])/(2*(-5 + d - n4)*qa*
+       (qa^2 - aa*qq + av2^2*qq)) - (av2*qa*qq*(-6*y + d*y - 2*n4*y)*
+       j[gr1, 1, 1, 1, 1 + n4, 1])/(2*(-5 + d - n4)*(qa^2 - aa*qq + 
+        av2^2*qq)) - ((aa - av2^2)*(1 + n4)*qq^2*(-1 + y)*(1 + y)*
+       j[gr1, 1, 1, 1, 2 + n4, 0])/(2*(-5 + d - n4)*qa*
+       (qa^2 - aa*qq + av2^2*qq)) + ((1 + n4)*qq^2*(-aa + av2^2 + aa*y^2)*
+       j[gr1, 1, 1, 1, 2 + n4, 1])/(4*(-5 + d - n4)*(qa^2 - aa*qq + 
+        av2^2*qq)) + (2*av2*qq*j[gr1, 2, 1, 0, n4, 1])/((-5 + d - n4)*qa) + 
+     (av2^2*qq^2*y*j[gr1, 2, 1, 0, 1 + n4, 1])/((-5 + d - n4)*
+       (qa^2 - aa*qq + av2^2*qq)) - (2*qq*j[gr1, 2, 1, 1, n4, 0])/
+      ((-5 + d - n4)*qa) - (av2*qq^2*y*j[gr1, 2, 1, 1, 1 + n4, 0])/
+      ((-5 + d - n4)*(qa^2 - aa*qq + av2^2*qq))}}]
