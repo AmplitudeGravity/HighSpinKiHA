@@ -1,0 +1,208 @@
+BasisDirectory[gr1] = StringDrop[DirectoryName[$Input], -1]
+gr1 /: BasisSectors[gr1] := {js[gr1, 1, 1, 1, 0, 0], js[gr1, 1, 1, 1, 0, 1], 
+   js[gr1, 1, 1, 1, 1, 0]}
+gr1 /: CurrentState[gr1] := <|NewDsBasis -> True, GenerateIBP -> True, 
+   AnalyzeSectors -> True, FindSymmetries -> False|>
+gr1 /: CutDs[gr1] := {1, 1, 1, 0, 0}
+gr1 /: Definitions[gr1] := {Hold[MetricTensor[] === d, SetDim[d]], 
+   Hold[VecQ[l1], Declare[l1, Vector]], Hold[VecQ[a1], Declare[a1, Vector]], 
+   Hold[VecQ[q], Declare[q, Vector]], Hold[VecQ[v1], Declare[v1, Vector]], 
+   Hold[VecQ[v2], Declare[v2, Vector]], Hold[TypeOf[a1] === Vector, 
+    Declare[a1, Vector]], Hold[TypeOf[aa] === Number, Declare[aa, Number]], 
+   Hold[TypeOf[av2] === Number, Declare[av2, Number]], 
+   Hold[TypeOf[q] === Vector, Declare[q, Vector]], 
+   Hold[TypeOf[qa] === Number, Declare[qa, Number]], 
+   Hold[TypeOf[qq] === Number, Declare[qq, Number]], 
+   Hold[TypeOf[v1] === Vector, Declare[v1, Vector]], 
+   Hold[TypeOf[v2] === Vector, Declare[v2, Vector]], 
+   Hold[TypeOf[y] === Number, Declare[y, Number]], 
+   Hold[sp[a1, a1] === aa, sp[a1, a1] = aa], Hold[sp[q, q] === qq, 
+    sp[q, q] = qq], Hold[sp[v1, v1] === 1, sp[v1, v1] = 1], 
+   Hold[sp[v2, v2] === 1, sp[v2, v2] = 1], Hold[sp[a1, q] === qa, 
+    sp[a1, q] = qa], Hold[sp[a1, v1] === 0, sp[a1, v1] = 0], 
+   Hold[sp[a1, v2] === av2, sp[a1, v2] = av2], Hold[sp[q, v1] === 0, 
+    sp[q, v1] = 0], Hold[sp[q, v2] === 0, sp[q, v2] = 0], 
+   Hold[sp[v1, v2] === y, sp[v1, v2] = y]}
+gr1 /: Ds[gr1] := {sp[l1, l1], sp[l1 - q, l1 - q], sp[l1, v2], sp[l1, v1], 
+   sp[a1, l1]}
+gr1 /: DsBasisQ[gr1] := True
+gr1 /: EMs[gr1] := {a1, q, v1, v2}
+gr1 /: ExtMappedSectors[gr1] := {}
+gr1 /: ExtSectorsMappings[gr1] := {}
+gr1 /: IBP[gr1] := {-(#2*j[gr1, -1 + #1, 1 + #2, #3, #4, #5]) + 
+     (d - 2*#1 - #2 - #3 - #4 - #5)*j[gr1, #1, #2, #3, #4, #5] + 
+     #2*qq*j[gr1, #1, 1 + #2, #3, #4, #5], 
+    -(aa*#5*j[gr1, #1, #2, #3, #4, 1 + #5]) - 
+     av2*#3*j[gr1, #1, #2, 1 + #3, #4, #5] - 
+     2*#2*j[gr1, #1, 1 + #2, #3, #4, -1 + #5] + 
+     2*#2*qa*j[gr1, #1, 1 + #2, #3, #4, #5] - 
+     2*#1*j[gr1, 1 + #1, #2, #3, #4, -1 + #5], 
+    -(#2*j[gr1, -1 + #1, 1 + #2, #3, #4, #5]) + 
+     (-#1 + #2)*j[gr1, #1, #2, #3, #4, #5] - 
+     #5*qa*j[gr1, #1, #2, #3, #4, 1 + #5] + 
+     #2*qq*j[gr1, #1, 1 + #2, #3, #4, #5] + 
+     #1*j[gr1, 1 + #1, -1 + #2, #3, #4, #5] - 
+     #1*qq*j[gr1, 1 + #1, #2, #3, #4, #5], 
+    -(#4*j[gr1, #1, #2, #3, 1 + #4, #5]) - 
+     #3*y*j[gr1, #1, #2, 1 + #3, #4, #5] - 
+     2*#2*j[gr1, #1, 1 + #2, #3, -1 + #4, #5] - 
+     2*#1*j[gr1, 1 + #1, #2, #3, -1 + #4, #5], 
+    -(av2*#5*j[gr1, #1, #2, #3, #4, 1 + #5]) - 
+     #4*y*j[gr1, #1, #2, #3, 1 + #4, #5] - 
+     #3*j[gr1, #1, #2, 1 + #3, #4, #5] - 2*#2*j[gr1, #1, 1 + #2, -1 + #3, #4, 
+       #5] - 2*#1*j[gr1, 1 + #1, #2, -1 + #3, #4, #5]} & 
+gr1 /: Information[gr1] := (If[ValueQ[gr1::usage], 
+    Information[gr1, LongForm -> False]]; 
+   Print[Grid[Partition[Union[Replace[Replace[First /@ UpValues[gr1] /. 
+          HoldPattern -> HoldForm, 
+         {HoldPattern[HoldForm[(LiteRed`Private`f$_)[gr1, __]]] :> 
+           HoldForm[LiteRed`Private`f$[gr1, "\[Ellipsis]"]]}, {1}], 
+        {HoldPattern[LiteRed`Private`x$:HoldForm[(LiteRed`Private`f$_)[gr1, 
+              ___]]] :> Button[LiteRed`Private`x$, 
+           (SelectionMove[ButtonNotebook[], All, GeneratedCell]; 
+             NotebookDelete[]; Information[Evaluate[LiteRed`Private`x$[[1,
+                0]]], LongForm -> False]; Print[TableForm[Cases[UpValues[
+                  gr1], HoldPattern[LiteRed`Private`a$_ :> 
+                    LiteRed`Private`b$_] /; MatchQ[LiteRed`Private`a$[[1,0]], 
+                   LiteRed`Private`x$[[1,0]]]] /. HoldPattern -> 
+                 HoldForm]]) & , Appearance -> "Frameless", 
+           BaseStyle -> "InformationLink"]}, {1}]], 5], 
+     DefaultBaseStyle -> "InfoGrid"]])
+gr1 /: jRules[gr1, 1, 1, 1, 0, 0] := 
+  Get[StringJoin[BasisDirectory[gr1], "/jRules[gr1, 1, 1, 1, 0, 0]"]]
+gr1 /: jRules[gr1, 1, 1, 1, 0, 1] := 
+  Get[StringJoin[BasisDirectory[gr1], "/jRules[gr1, 1, 1, 1, 0, 1]"]]
+gr1 /: jRules[gr1, 1, 1, 1, 1, 0] := 
+  Get[StringJoin[BasisDirectory[gr1], "/jRules[gr1, 1, 1, 1, 1, 0]"]]
+gr1 /: jRules[gr1, 1, 1, 1, 1, 1] := 
+  Get[StringJoin[BasisDirectory[gr1], "/jRules[gr1, 1, 1, 1, 1, 1]"]]
+gr1 /: jsOrder[gr1] := {"np", "cp", "-ds", "-ns"}
+gr1 /: jsOrder[gr1, 0, 1, 1, 0, 0] := {{-1, 1, 1, -1, -1}, 
+   {-1, 0, 0, -1, -1}, {0, -1, 0, 0, 0}, {1, 0, 0, 0, 0}, {0, 0, 0, 1, 0}}
+gr1 /: jsOrder[gr1, 0, 1, 1, 0, 1] := {{-1, 1, 1, -1, 1}, {-1, 0, 0, -1, 0}, 
+   {0, 1, 1, 0, 0}, {0, -1, 0, 0, 0}, {1, 0, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 0, 1, 1, 1, 0] := {{-1, 1, 1, 1, -1}, {-1, 0, 0, 0, -1}, 
+   {0, 1, 1, 0, 0}, {0, -1, 0, 0, 0}, {1, 0, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 0, 1, 1, 1, 1] := {{-1, 1, 1, 1, 1}, {-1, 0, 0, 0, 0}, 
+   {0, 1, 1, 0, 0}, {0, -1, 0, 0, 0}, {0, 0, 0, -1, 0}}
+gr1 /: jsOrder[gr1, 1, 0, 1, 0, 0] := {{1, -1, 1, -1, -1}, 
+   {0, -1, 0, -1, -1}, {-1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}, {0, 0, 0, 1, 0}}
+gr1 /: jsOrder[gr1, 1, 0, 1, 0, 1] := {{1, -1, 1, -1, 1}, {0, -1, 0, -1, 0}, 
+   {1, 0, 1, 0, 0}, {-1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 0, 1, 1, 0] := {{1, -1, 1, 1, -1}, {0, -1, 0, 0, -1}, 
+   {1, 0, 1, 0, 0}, {-1, 0, 0, 0, 0}, {0, 1, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 0, 1, 1, 1] := {{1, -1, 1, 1, 1}, {0, -1, 0, 0, 0}, 
+   {1, 0, 1, 0, 0}, {-1, 0, 0, 0, 0}, {0, 0, 0, -1, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 0, 0, 0] := {{1, 1, -1, -1, -1}, 
+   {0, 0, -1, -1, -1}, {-1, 0, 0, 0, 0}, {0, 0, 1, 0, 0}, {0, 0, 0, 1, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 0, 0, 1] := {{1, 1, -1, -1, 1}, {0, 0, -1, -1, 0}, 
+   {1, 1, 0, 0, 0}, {-1, 0, 0, 0, 0}, {0, 0, 1, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 0, 1, 0] := {{1, 1, -1, 1, -1}, {0, 0, -1, 0, -1}, 
+   {1, 1, 0, 0, 0}, {-1, 0, 0, 0, 0}, {0, 0, 1, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 0, 1, 1] := {{1, 1, -1, 1, 1}, {0, 0, -1, 0, 0}, 
+   {1, 1, 0, 0, 0}, {-1, 0, 0, 0, 0}, {0, 0, 0, -1, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 1, 0, 0] := {{1, 1, 1, -1, -1}, {0, 0, 0, -1, -1}, 
+   {-1, 0, 0, 0, 0}, {0, -1, 0, 0, 0}, {0, 0, 0, 1, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 1, 0, 1] := {{1, 1, 1, -1, 1}, {0, 0, 0, -1, 0}, 
+   {1, 1, 1, 0, 0}, {-1, 0, 0, 0, 0}, {0, -1, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 1, 1, 0] := {{1, 1, 1, 1, -1}, {0, 0, 0, 0, -1}, 
+   {1, 1, 1, 0, 0}, {-1, 0, 0, 0, 0}, {0, -1, 0, 0, 0}}
+gr1 /: jsOrder[gr1, 1, 1, 1, 1, 1] := {{1, 1, 1, 1, 1}, {1, 1, 1, 0, 0}, 
+   {-1, 0, 0, 0, 0}, {0, -1, 0, 0, 0}, {0, 0, 0, -1, 0}}
+gr1 /: jSymmetries[gr1, 1, 1, 1, 0, 0] := 
+  {{j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?NonPositive] :> Expand[j[gr1, n1, n2, n3, n4, n5]]}}
+gr1 /: jSymmetries[gr1, 1, 1, 1, 0, 1] := 
+  {{j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?NonPositive, 
+      (n5_)?Positive] :> Expand[j[gr1, n1, n2, n3, n4, n5]]}}
+gr1 /: jSymmetries[gr1, 1, 1, 1, 1, 0] := 
+  {{j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?Positive, 
+      (n5_)?NonPositive] :> Expand[j[gr1, n1, n2, n3, n4, n5]]}}
+gr1 /: jSymmetries[gr1, 1, 1, 1, 1, 1] := 
+  {{j[gr1, (n1_)?Positive, (n2_)?Positive, (n3_)?Positive, (n4_)?Positive, 
+      (n5_)?Positive] :> Expand[j[gr1, n1, n2, n3, n4, n5]]}}
+gr1 /: LI[gr1] := {-1/2*(aa*#5*j[gr1, -1 + #1, #2, #3, #4, 1 + #5]) - 
+     (av2*#3*j[gr1, -1 + #1, #2, 1 + #3, #4, #5])/2 + 
+     #2*qa*j[gr1, -1 + #1, 1 + #2, #3, #4, #5] + 
+     (aa*#5*j[gr1, #1, -1 + #2, #3, #4, 1 + #5])/2 + 
+     (av2*#3*j[gr1, #1, -1 + #2, 1 + #3, #4, #5])/2 - 
+     (#2 - #5)*qa*j[gr1, #1, #2, #3, #4, #5] - 
+     (aa*#5*qq*j[gr1, #1, #2, #3, #4, 1 + #5])/2 - 
+     (av2*#3*qq*j[gr1, #1, #2, 1 + #3, #4, #5])/2 - 
+     2*#2*qq*j[gr1, #1, 1 + #2, #3, #4, -1 + #5] + 
+     #2*qa*qq*j[gr1, #1, 1 + #2, #3, #4, #5], 
+    -(aa*#5*j[gr1, #1, #2, #3, -1 + #4, 1 + #5]) + 
+     #4*j[gr1, #1, #2, #3, 1 + #4, -1 + #5] - 
+     av2*#3*j[gr1, #1, #2, 1 + #3, -1 + #4, #5] + 
+     #3*y*j[gr1, #1, #2, 1 + #3, #4, -1 + #5] + 
+     2*#2*qa*j[gr1, #1, 1 + #2, #3, -1 + #4, #5], 
+    -(aa*#5*j[gr1, #1, #2, -1 + #3, #4, 1 + #5]) - 
+     av2*(#3 - #5)*j[gr1, #1, #2, #3, #4, #5] + 
+     #4*y*j[gr1, #1, #2, #3, 1 + #4, -1 + #5] + 
+     #3*j[gr1, #1, #2, 1 + #3, #4, -1 + #5] + 
+     2*#2*qa*j[gr1, #1, 1 + #2, -1 + #3, #4, #5], 
+    (#4*j[gr1, -1 + #1, #2, #3, 1 + #4, #5])/2 + 
+     (#3*y*j[gr1, -1 + #1, #2, 1 + #3, #4, #5])/2 - 
+     (#4*j[gr1, #1, -1 + #2, #3, 1 + #4, #5])/2 - 
+     (#3*y*j[gr1, #1, -1 + #2, 1 + #3, #4, #5])/2 - 
+     #5*qa*j[gr1, #1, #2, #3, -1 + #4, 1 + #5] + 
+     (#4*qq*j[gr1, #1, #2, #3, 1 + #4, #5])/2 + 
+     (#3*qq*y*j[gr1, #1, #2, 1 + #3, #4, #5])/2 + 
+     2*#2*qq*j[gr1, #1, 1 + #2, #3, -1 + #4, #5], 
+    (av2*#5*j[gr1, -1 + #1, #2, #3, #4, 1 + #5])/2 + 
+     (#4*y*j[gr1, -1 + #1, #2, #3, 1 + #4, #5])/2 + 
+     (#3*j[gr1, -1 + #1, #2, 1 + #3, #4, #5])/2 - 
+     (av2*#5*j[gr1, #1, -1 + #2, #3, #4, 1 + #5])/2 - 
+     (#4*y*j[gr1, #1, -1 + #2, #3, 1 + #4, #5])/2 - 
+     (#3*j[gr1, #1, -1 + #2, 1 + #3, #4, #5])/2 - 
+     #5*qa*j[gr1, #1, #2, -1 + #3, #4, 1 + #5] + 
+     (av2*#5*qq*j[gr1, #1, #2, #3, #4, 1 + #5])/2 + 
+     (#4*qq*y*j[gr1, #1, #2, #3, 1 + #4, #5])/2 + 
+     (#3*qq*j[gr1, #1, #2, 1 + #3, #4, #5])/2 + 
+     2*#2*qq*j[gr1, #1, 1 + #2, -1 + #3, #4, #5], 
+    -(#4*j[gr1, #1, #2, -1 + #3, 1 + #4, #5]) + 
+     av2*#5*j[gr1, #1, #2, #3, -1 + #4, 1 + #5] - 
+     (#3 - #4)*y*j[gr1, #1, #2, #3, #4, #5] + 
+     #3*j[gr1, #1, #2, 1 + #3, -1 + #4, #5]} & 
+gr1 /: LMs[gr1] := {l1}
+gr1 /: MappedSectors[gr1] := {}
+gr1 /: MIs[gr1] := {j[gr1, 1, 1, 1, 0, 0], j[gr1, 1, 1, 1, 0, 1], 
+   j[gr1, 1, 1, 1, 1, 0], j[gr1, 1, 1, 1, 1, 1]}
+gr1 /: NDs[gr1] := 5
+gr1 /: NonZeroSectors[gr1] := {js[gr1, 1, 1, 1, 0, 0], 
+   js[gr1, 1, 1, 1, 0, 1], js[gr1, 1, 1, 1, 1, 0], js[gr1, 1, 1, 1, 1, 1]}
+gr1 /: Parameters[gr1] := {aa, av2, d, qa, qq, y}
+gr1 /: PowerShifts[gr1] := {0, 0, 0, 0, 0}
+gr1 /: SectorsMappings[gr1] := {}
+gr1 /: SectorsPattern[gr1] := {___}
+gr1 /: SimpleSectors[gr1] := {js[gr1, 1, 1, 1, 0, 0]}
+gr1 /: SPs[gr1] := {sp[a1, l1], sp[l1, l1], sp[l1, q], sp[l1, v1], sp[l1, v2]}
+gr1 /: SR[gr1] := Get[StringJoin[BasisDirectory[gr1], "/SR[gr1]"]]
+gr1 /: Toj[gr1] := {sp[a1, l1] -> j[gr1, 0, 0, 0, 0, -1], 
+   sp[l1, l1] -> j[gr1, -1, 0, 0, 0, 0], 
+   sp[l1, q] -> (qq + j[gr1, -1, 0, 0, 0, 0] - j[gr1, 0, -1, 0, 0, 0])/2, 
+   sp[l1, v1] -> j[gr1, 0, 0, 0, -1, 0], sp[l1, v2] -> j[gr1, 0, 0, -1, 0, 0]}
+gr1 /: UniqueSectors[gr1] := {js[gr1, 1, 1, 1, 0, 0], js[gr1, 1, 1, 1, 0, 1], 
+   js[gr1, 1, 1, 1, 1, 0], js[gr1, 1, 1, 1, 1, 1]}
+gr1 /: ZerojRule[gr1] := LiteRed`Private`jjj:j[gr1, __] :> 
+   0 /; Module[{LiteRed`Private`jjs = 
+       Rest[List @@ jSector[LiteRed`Private`jjj]]}, 
+     Or @@ (BitOr[LiteRed`Private`jjs, #1] === #1 & ) /@ 
+       {{1, 1, 0, 1, 1}, {1, 0, 1, 1, 1}, {0, 1, 1, 1, 1}}]
+gr1 /: ZeroSectors[gr1] := {js[gr1, 0, 0, 0, 0, 0], js[gr1, 0, 0, 0, 0, 1], 
+   js[gr1, 0, 0, 0, 1, 0], js[gr1, 0, 0, 1, 0, 0], js[gr1, 0, 1, 0, 0, 0], 
+   js[gr1, 1, 0, 0, 0, 0], js[gr1, 0, 0, 0, 1, 1], js[gr1, 0, 0, 1, 0, 1], 
+   js[gr1, 0, 0, 1, 1, 0], js[gr1, 0, 1, 0, 0, 1], js[gr1, 0, 1, 0, 1, 0], 
+   js[gr1, 0, 1, 1, 0, 0], js[gr1, 1, 0, 0, 0, 1], js[gr1, 1, 0, 0, 1, 0], 
+   js[gr1, 1, 0, 1, 0, 0], js[gr1, 1, 1, 0, 0, 0], js[gr1, 0, 0, 1, 1, 1], 
+   js[gr1, 0, 1, 0, 1, 1], js[gr1, 0, 1, 1, 0, 1], js[gr1, 0, 1, 1, 1, 0], 
+   js[gr1, 1, 0, 0, 1, 1], js[gr1, 1, 0, 1, 0, 1], js[gr1, 1, 0, 1, 1, 0], 
+   js[gr1, 1, 1, 0, 0, 1], js[gr1, 1, 1, 0, 1, 0], js[gr1, 0, 1, 1, 1, 1], 
+   js[gr1, 1, 0, 1, 1, 1], js[gr1, 1, 1, 0, 1, 1]}
+gr1 /: SectorsMappings[gr1, LiteRed`Private`ns$:(0 | 1)..] := 
+  Cases[SectorsMappings[gr1], HoldPattern[js[gr1, LiteRed`Private`ns$] -> _]]
+gr1::usage = "1-loop basis with 4 external momenta.\nUse Information[gr1] to \
+get basis summary.\nThis string can be redefined by setting \
+gr1::usage=\"\[Ellipsis]\""; Information[gr1, LongForm -> False]; 
+LiteRed`Private`CheckDefs[gr1]
+BasisDirectory[gr1]
